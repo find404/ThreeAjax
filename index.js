@@ -4,28 +4,28 @@
 		Interactive : [],
 		Send	: (function(){
 			     var Url		= (this.Interactive[0].Url==undefined) 		? window.location.pathname : this.Interactive[0].Url;
-			     var Operation   = (this.Interactive[0].Operation==undefined)    ? 'post'				   : this.Interactive[0].Operation;
+			     var Operation	= (this.Interactive[0].Operation==undefined)    ? 'post'				   : this.Interactive[0].Operation;
 				$[Operation](Url, this.Interactive[0],function(data) {
-				if(data){
-					if(data.ret==100){
-						ThreeAjax.Interactive[1](data);
+					if(data){
+						if(data.ret==100){
+							ThreeAjax.Interactive[1](data);
+						}else{
+							if(ThreeAjax.Interactive[3]==undefined){
+									alert('数据有误');
+							}else{
+									ThreeAjax.Interactive[3];
+							}
+						}
 					}else{
 						if(ThreeAjax.Interactive[3]==undefined){
-								alert('数据有误');
+							alert('网络有误！');
 						}else{
-								ThreeAjax.Interactive[3];
+							ThreeAjax.Interactive[3];
 						}
 					}
-				}else{
-					if(ThreeAjax.Interactive[3]==undefined){
-						alert('网络有误！');
-					}else{
-						ThreeAjax.Interactive[3];
-					}
-				}
 				});
-				})
-				};
+		})
+	};
         
         
         //调用    eg:
@@ -39,7 +39,7 @@
 						});
             
          //成功页面调用层
-           ThreeAjax.Interactive.push(function(data){
+	ThreeAjax.Interactive.push(function(data){
                 var html = '';
                 if($.isEmptyObject(data.data.data) == false){
                   $.each(data.data.data ,function(k ,v) {
@@ -53,4 +53,6 @@
                     $('.ajax_goods_list').html('没有了~~');
               }
             }
-  );
+  	);
+
+	ThreeAjax.Send();
